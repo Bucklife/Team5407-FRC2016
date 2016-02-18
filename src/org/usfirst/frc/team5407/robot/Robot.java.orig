@@ -1,8 +1,6 @@
 package org.usfirst.frc.team5407.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -19,7 +17,12 @@ public class Robot extends IterativeRobot {
 	int autoLoopCounter;
 	RobotBase robotbase; 
 	Inputs inputs; 
+<<<<<<< HEAD
 	Solenoids solenoids; 
+=======
+	Shooter shooter; 
+	
+>>>>>>> 82a18e6b4ceeafb18e26ad6ae2442c4058e8bc27
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -30,10 +33,17 @@ public class Robot extends IterativeRobot {
     	//joy_RightDriveStick = new Joystick(0);
     	
     	robotbase = new RobotBase(0,1);
+<<<<<<< HEAD
     	inputs = new Inputs(0);
     	solenoids = new Solenoids(0,1,2,3);
     	
     	
+=======
+    	inputs = new Inputs(0,   //USB Joystick Driver  
+    						1	 //USB Joystick Shooter 
+    						);  
+    	shooter = new Shooter(2); //Shooter Motor 
+>>>>>>> 82a18e6b4ceeafb18e26ad6ae2442c4058e8bc27
     	
     	
     }
@@ -71,7 +81,11 @@ public class Robot extends IterativeRobot {
         // myRobot.arcadeDrive(joy_RightDriveStick);
         inputs.readValues();
         robotbase.update();
+<<<<<<< HEAD
         solenoids.update();
+=======
+        shooter.update(); 
+>>>>>>> 82a18e6b4ceeafb18e26ad6ae2442c4058e8bc27
         robotThink();
 
     }
@@ -79,6 +93,7 @@ public class Robot extends IterativeRobot {
     public void robotThink() {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
+    	shooter.d_ShooterPower = inputs.d_ShooterPower;
     }
     
     
