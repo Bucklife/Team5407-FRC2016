@@ -10,10 +10,10 @@ public class Inputs {
 	double d_TurnArcadeDrive;
 	double d_PowerArcadeDrive; 
 	
-
+	boolean b_ShiftGears; 
 	
 	
-	public Inputs( int USBConnector_RightDriveStick /*, int USBConnector_joy_LeftWeaponsStick*/){
+	public Inputs(int USBConnector_RightDriveStick /*, int USBConnector_joy_LeftWeaponsStick*/){
 		
 		joy_RightDriveStick = new Joystick(USBConnector_RightDriveStick); 
 		zeroInputs();
@@ -25,7 +25,7 @@ public class Inputs {
 		
 		 d_TurnArcadeDrive = joy_RightDriveStick.getX() * -1 * .50;
 		 d_PowerArcadeDrive = joy_RightDriveStick.getY() * -1;
-		
+		 b_ShiftGears = joy_RightDriveStick.getTrigger();
 		
 		
 	}
@@ -35,7 +35,6 @@ public class Inputs {
 		this.d_PowerArcadeDrive = 0.0;
 
 	}
-	
 	
 	
 
