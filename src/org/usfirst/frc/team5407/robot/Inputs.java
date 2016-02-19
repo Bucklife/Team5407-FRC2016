@@ -23,8 +23,8 @@ public class Inputs {
 	}
 	public void readValues() {
 		
-		 d_TurnArcadeDrive = joy_RightDriveStick.getX() * -1 * .50;
-		 d_PowerArcadeDrive = joy_RightDriveStick.getY() * -1;
+		 d_PowerArcadeDrive = joy_RightDriveStick.getX() * -1 * .50;
+		 d_TurnArcadeDrive = joy_RightDriveStick.getY() * -1;
 		
 		
 		
