@@ -79,6 +79,7 @@ public class Robot extends IterativeRobot {
     public void robotThink() {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
+    	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     }
     
     
