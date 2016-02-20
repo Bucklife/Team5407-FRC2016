@@ -41,12 +41,9 @@ public class Robot extends IterativeRobot {
     	solenoids = new Solenoids(0,	// Drive train shift gears
     							  1,	// Shooter kicker 
     							  2,	// Shooter arm 
-    							  3		// Shooter Extension
+    							  3,	// Shooter Extension
+    							  4		// Scissors Lift
     							  );
-    	
-    	
-    	
-    	
     }
     
     /**
@@ -94,6 +91,7 @@ public class Robot extends IterativeRobot {
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	solenoids.b_ShooterArm = inputs.b_ShooterArm;
     	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
+    	solenoids.b_ScissorLift = inputs.b_ScissorLift; 
     }
     
     
