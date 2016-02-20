@@ -26,12 +26,9 @@ public class Inputs {
 	}
 	public void readValues() {
 		
-<<<<<<< HEAD
 		 d_PowerArcadeDrive = joy_RightDriveStick.getX() * -1 * .50;
 		 d_TurnArcadeDrive = joy_RightDriveStick.getY() * -1;
 		
-		
-=======
 		 d_TurnArcadeDrive = joy_RightDriveStick.getX() * -1 * .50;
 		 d_PowerArcadeDrive = joy_RightDriveStick.getY() * -1;
 		 b_ShiftGears = joy_RightDriveStick.getTrigger();
@@ -39,7 +36,6 @@ public class Inputs {
 		 b_ShooterArm = joy_RightDriveStick.getRawButton(3);
 		 b_ShooterExtension = joy_RightDriveStick.getRawButton(4); 	
 		 b_ScissorLift = joy_RightDriveStick.getRawButton(5);
->>>>>>> pneumatic
 		
 	}
 		
