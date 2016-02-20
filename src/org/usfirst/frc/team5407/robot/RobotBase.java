@@ -21,8 +21,8 @@ public class RobotBase {
     
     	
     	// Make sure motors are stopped
-    	mot_LeftDriveMotor.set(0.0);
-    	mot_RightDriveMotor.set(0.0);
+    	mot_LeftDriveMotor.set(0.0);  
+    	mot_RightDriveMotor.set(0.0); 
     	
     	
     //	this.bp_AllowedToDrive = true;					//this is a safety mode so robot will not move 

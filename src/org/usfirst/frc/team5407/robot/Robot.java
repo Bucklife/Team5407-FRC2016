@@ -19,7 +19,7 @@ public class Robot extends IterativeRobot {
 	int autoLoopCounter;
 	RobotBase robotbase; 
 	Inputs inputs; 
-	
+	Solenoids solenoids; 
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -30,9 +30,20 @@ public class Robot extends IterativeRobot {
     	//joy_RightDriveStick = new Joystick(0);
     	
     	robotbase = new RobotBase(0,1);
-    	inputs = new Inputs(0);   
+    	inputs = new Inputs(0);
     	
     	
+    	// 1) Declare solenoids below.
+    	// 2) Add the inputs to set the solenoid variables
+    	// 3) Setup the solenoids objects in the Solenoids class
+    	// 4) Set the solenoid variables to equal the input variables in RobotThink below
+    	
+    	solenoids = new Solenoids(0,	// Drive train shift gears
+    							  1,	// Shooter kicker 
+    							  2,	// Shooter arm 
+    							  3,	// Shooter Extension
+    							  4		// Scissors Lift
+    							  );
     }
     
     /**
@@ -68,13 +79,19 @@ public class Robot extends IterativeRobot {
         // myRobot.arcadeDrive(joy_RightDriveStick);
         inputs.readValues();
         robotbase.update();
+        solenoids.update();
         robotThink();
-     
+
     }
     
     public void robotThink() {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
+    	solenoids.b_ShiftGears = inputs.b_ShiftGears;
+    	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
+    	solenoids.b_ShooterArm = inputs.b_ShooterArm;
+    	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
+    	solenoids.b_ScissorLift = inputs.b_ScissorLift; 
     }
     
     
