@@ -22,7 +22,6 @@ public class Robot extends IterativeRobot {
 	Inputs inputs; 
 	Solenoids solenoids; 
 	Shooter shooter; 
-	Servo servo; 
 	Winch winch;
 	
     /**
@@ -34,9 +33,9 @@ public class Robot extends IterativeRobot {
     	//joy_RightDriveStick = new Joystick(0);
     	
     	robotbase = new RobotBase(0,1);
-    	inputs = new Inputs(0);
-    	shooter = new Shooter(0);
-    	servo = new Servo(2);
+    	inputs = new Inputs(0,1);
+    	shooter = new Shooter(2);
+    	winch = new Winch(3);
     	
     	// Instructions to add a new solenoid:
     	// 1) Declare solenoids below.
@@ -87,7 +86,7 @@ public class Robot extends IterativeRobot {
         robotbase.update();
         solenoids.update();
         shooter.update();
-        winch.update();
+        winch.update(inputs);
         robotThink();
     }
     
@@ -99,11 +98,7 @@ public class Robot extends IterativeRobot {
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	solenoids.b_ShooterArm = inputs.b_ShooterArm;
     	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
-    	solenoids.b_ScissorLift = inputs.b_ScissorLift; 
-    	
-    	if(inputs.b_WinchBrake == true){
-    		winch.d_WinchBrake = .5;
-    	}
+    	solenoids.b_ScissorLift = inputs.b_ScissorLift;     	
     }
     
     
