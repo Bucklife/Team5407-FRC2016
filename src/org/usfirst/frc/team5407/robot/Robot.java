@@ -1,7 +1,9 @@
 package org.usfirst.frc.team5407.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -23,6 +25,15 @@ public class Robot extends IterativeRobot {
 	Solenoids solenoids; 
 	Shooter shooter; 
 	Winch winch;
+	
+	CameraServer server;
+
+    public Robot() {
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam0");
+    }
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -88,6 +99,11 @@ public class Robot extends IterativeRobot {
         shooter.update();
         winch.update(inputs);
         robotThink();
+        
+        while (isOperatorControl() && isEnabled()) {
+            /** robot code here! **/
+            Timer.delay(0.005);		// wait for a motor update time
+        }
     }
     
     public void robotThink() {
