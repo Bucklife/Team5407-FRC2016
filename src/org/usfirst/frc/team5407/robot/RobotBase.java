@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Talon;
 public class RobotBase {
 
 	Talon mot_LeftDriveMotor;
-	Talon mot_RightDriveMotor; 
+	Talon mot_RightDriveMotor;
 	
 	double d_LeftDrivePower;
 	double d_RightDrivePower; 
