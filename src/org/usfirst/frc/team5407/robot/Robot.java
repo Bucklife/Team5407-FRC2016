@@ -1,8 +1,9 @@
 package org.usfirst.frc.team5407.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Servo;
+//import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -15,11 +16,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 	// RobotDrive myRobot;
 	// Joystick joy_RightDriveStick;
-	//Joystick joy_LeftWeaponsStick; 
+	// Joystick joy_LeftWeaponsStick; 
 	int autoLoopCounter;
 	RobotBase robotbase; 
 	Inputs inputs; 
 	Solenoids solenoids; 
+	Shooter shooter; 
+	Winch winch;
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -30,9 +33,11 @@ public class Robot extends IterativeRobot {
     	//joy_RightDriveStick = new Joystick(0);
     	
     	robotbase = new RobotBase(0,1);
-    	inputs = new Inputs(0);
+    	inputs = new Inputs(0,1);
+    	shooter = new Shooter(2);
+    	winch = new Winch(3);
     	
-    	
+    	// Instructions to add a new solenoid:
     	// 1) Declare solenoids below.
     	// 2) Add the inputs to set the solenoid variables
     	// 3) Setup the solenoids objects in the Solenoids class
@@ -80,18 +85,20 @@ public class Robot extends IterativeRobot {
         inputs.readValues();
         robotbase.update();
         solenoids.update();
+        shooter.update();
+        winch.update(inputs);
         robotThink();
-
     }
     
     public void robotThink() {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
+    	shooter.d_ShooterPower = inputs.d_ShooterPower;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	solenoids.b_ShooterArm = inputs.b_ShooterArm;
     	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
-    	solenoids.b_ScissorLift = inputs.b_ScissorLift; 
+    	solenoids.b_ScissorLift = inputs.b_ScissorLift;     	
     }
     
     
