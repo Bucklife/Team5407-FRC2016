@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5407.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Servo;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -35,7 +34,7 @@ public class Robot extends IterativeRobot {
     	robotbase = new RobotBase(0,1);
     	inputs = new Inputs(0,1);
     	shooter = new Shooter(2);
-    	winch = new Winch(3);
+    	winch = new Winch(3,4);
     	
     	// Instructions to add a new solenoid:
     	// 1) Declare solenoids below.
@@ -94,6 +93,7 @@ public class Robot extends IterativeRobot {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
     	shooter.d_ShooterPower = inputs.d_ShooterPower;
+    	winch.d_LiftWinchPower = inputs.d_LiftWinchPower;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	solenoids.b_ShooterArm = inputs.b_ShooterArm;
