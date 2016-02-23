@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
     	shooter.d_ShooterPower = inputs.d_ShooterPower;
-    	winch.d_LiftWinchPower = inputs.d_LiftWinchPower;
+    	//winch.d_LiftWinchPower = inputs.d_LiftWinchPower;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	solenoids.b_ShooterArm = inputs.b_ShooterArm;
