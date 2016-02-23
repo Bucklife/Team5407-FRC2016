@@ -11,6 +11,7 @@ public class Inputs {
 	double d_PowerArcadeDrive; 
 	double d_ShooterPower;
 	double d_LiftWinchPower;
+	double d_ShooterWinch;
 	
 	boolean b_ShiftGears; 
 	boolean b_ShooterKicker;
@@ -33,10 +34,11 @@ public class Inputs {
 		
 		 d_PowerArcadeDrive = joy_RightDriveStick.getX() * -1 * .50;
 		 d_TurnArcadeDrive = joy_RightDriveStick.getY() * -1;
+		 d_ShooterWinch = joy_LeftWeaponsStick.getY() * -1;
 		 
 
 		 
-		 d_ShooterPower = joy_RightDriveStick.getZ() * -1;
+		// d_ShooterPower = joy_RightDriveStick.getZ() * -1;
 		 b_ShiftGears = joy_RightDriveStick.getTrigger();
 		 b_ShooterKicker = joy_RightDriveStick.getRawButton(2); 
 		 b_ShooterArm = joy_RightDriveStick.getRawButton(3);
