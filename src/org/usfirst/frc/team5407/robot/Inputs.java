@@ -38,7 +38,7 @@ public class Inputs {
 		 
 
 		 
-		// d_ShooterPower = joy_RightDriveStick.getZ() * -1;
+		 d_ShooterPower = joy_RightDriveStick.getZ() * -1;
 		 b_ShiftGears = joy_RightDriveStick.getTrigger();
 		 b_ShooterKicker = joy_RightDriveStick.getRawButton(2); 
 		 b_ShooterArm = joy_RightDriveStick.getRawButton(3);
