@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
         inputs.readValues();
         robotbase.update();
         solenoids.update();
-        shooter.update();
+        shooter.update(inputs);
         winch.update(inputs);
         robotThink();
     }
@@ -90,10 +90,7 @@ public class Robot extends IterativeRobot {
     public void robotThink() {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
-    	shooter.d_ShooterPower = inputs.d_ShooterPower;
     	shooter.d_ShooterWinch = inputs.d_ShooterWinch;
-    	//winch.d_LiftWinchPower = inputs.d_LiftWinchPower;
-    	//winch.d_LiftRelease = inputs.b_LiftRelease;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	solenoids.b_ShooterArm = inputs.b_ShooterArm;
