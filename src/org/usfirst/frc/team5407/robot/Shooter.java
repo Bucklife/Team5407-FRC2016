@@ -22,13 +22,21 @@ public class Shooter{
 		mot_ShooterWinch.set(0.0);
 		
 		}
-		public void update(Inputs inputs){
+		public void update(Inputs inputs, Solenoids solenoids){
+			
+			d_ShooterPower = 0;
 			
 			if(inputs.b_ShooterPower == true){
-				d_ShooterPower = .60;
-	    	} else {
-	    		d_ShooterPower = 0;
+				d_ShooterPower = -.60;
 	    	}
+			
+			if(inputs.b_ShooterArm == false){
+				d_ShooterPower = .40;
+				solenoids.b_ShooterArm = true;
+	    	} else {
+	    		solenoids.b_ShooterArm = false;
+	    	}
+			
 			mot_ShooterPower.set(d_ShooterPower);
 			mot_ShooterWinch.set(d_ShooterWinch);
 		}
