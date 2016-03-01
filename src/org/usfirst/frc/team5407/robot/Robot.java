@@ -28,13 +28,11 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	// myRobot = new RobotDrive(0,1);
-    	//joy_RightDriveStick = new Joystick(0);
     	
     	robotbase = new RobotBase(0,1);
-    	inputs = new Inputs(0,1);
+    	inputs = new Inputs(0,1,2);
     	shooter = new Shooter(2,5);
-    	winch = new Winch(3,4);
+    	winch = new Winch(3,4,6);
     	
     	// Instructions to add a new solenoid:
     	// 1) Declare solenoids below.
@@ -95,6 +93,7 @@ public class Robot extends IterativeRobot {
     	shooter.d_ShooterPower = inputs.d_ShooterPower;
     	shooter.d_ShooterWinch = inputs.d_ShooterWinch;
     	//winch.d_LiftWinchPower = inputs.d_LiftWinchPower;
+    	//winch.d_LiftRelease = inputs.b_LiftRelease;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	solenoids.b_ShooterArm = inputs.b_ShooterArm;
