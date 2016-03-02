@@ -92,15 +92,15 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         // myRobot.arcadeDrive(joy_RightDriveStick);
-        inputs.readValues();
-        robotbase.update();
-        solenoids.update();
-        shooter.update(inputs, solenoids);
-        winch.update(inputs);
-        robotThink();
-        
+         
         while (isOperatorControl() && isEnabled()) {
             /** robot code here! **/
+        	   inputs.readValues();
+               robotbase.update();
+               solenoids.update();
+               shooter.update(inputs, solenoids);
+               winch.update(inputs);
+               robotThink();
             Timer.delay(0.005);		// wait for a motor update time
         }
 
