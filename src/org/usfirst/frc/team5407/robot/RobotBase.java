@@ -1,6 +1,9 @@
 package org.usfirst.frc.team5407.robot;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotBase {
 
@@ -10,7 +13,10 @@ public class RobotBase {
 	double d_LeftDrivePower;
 	double d_RightDrivePower; 
 	
-	   /**
+	double d_gyroAngle;
+	Gyro shooterGyro;
+	
+	 /**
      * This function is run when this class is first created used for any initialization code.
      */
     public RobotBase(int PWMConnector_LeftDriveMotor,
@@ -19,15 +25,18 @@ public class RobotBase {
     	mot_LeftDriveMotor = new Talon(PWMConnector_LeftDriveMotor);
     	mot_RightDriveMotor = new Talon(PWMConnector_RightDriveMotor);
     
-    	
     	// Make sure motors are stopped
     	mot_LeftDriveMotor.set(0.0);  
     	mot_RightDriveMotor.set(0.0); 
     	
+    	shooterGyro = new AnalogGyro(0);
     	
     //	this.bp_AllowedToDrive = true;					//this is a safety mode so robot will not move 
     }
 	
+    public void reset(){
+		shooterGyro.reset();
+    }
 	
     public void update(){
 
@@ -37,12 +46,11 @@ public class RobotBase {
     	 */
     	mot_LeftDriveMotor.set(d_LeftDrivePower);
     	mot_RightDriveMotor.set(d_RightDrivePower*-1.0);
-
     }
-	
-	
-	
-	
-	
+    
+    public void gyroUpdate(){
+		d_gyroAngle = shooterGyro.getAngle();
+		SmartDashboard.putNumber("Gyro Angle", d_gyroAngle);
+    }
 	
 }

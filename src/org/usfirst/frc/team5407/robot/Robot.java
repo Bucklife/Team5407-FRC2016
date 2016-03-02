@@ -85,6 +85,8 @@ public class Robot extends IterativeRobot {
      * This function is called once each time the robot enters tele-operated mode
      */
     public void teleopInit(){
+    	robotbase.reset();
+    	Timer.delay(2);
     }
 
     /**
@@ -92,15 +94,21 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         // myRobot.arcadeDrive(joy_RightDriveStick);
-         
+    	
+    	robotbase.reset();	// resets gyro
+    	Timer.delay(2);		// waits for gyro to reset
+        
         while (isOperatorControl() && isEnabled()) {
             /** robot code here! **/
-        	   inputs.readValues();
-               robotbase.update();
-               solenoids.update();
-               shooter.update(inputs, solenoids);
-               winch.update(inputs);
-               robotThink();
+            inputs.readValues();
+            robotbase.update();
+            solenoids.update();
+            shooter.update(inputs, solenoids);
+            winch.update(inputs);
+            robotThink();
+            
+            robotbase.gyroUpdate();
+                        
             Timer.delay(0.005);		// wait for a motor update time
         }
 
