@@ -6,10 +6,11 @@ public class Inputs {
 	
 	Joystick joy_RightDriveStick; 
 	Joystick joy_LeftWeaponsStick; 
+	Joystick joy_LeftWeaponsButtons; 
 	
 	double d_TurnArcadeDrive;
 	double d_PowerArcadeDrive; 
-	double d_ShooterPower;
+	double d_ShooterWinch;
 	
 	boolean b_ShiftGears; 
 	boolean b_ShooterKicker;
@@ -17,11 +18,18 @@ public class Inputs {
 	boolean b_ShooterExtension; 
 	boolean b_ScissorLift;
 	boolean b_WinchBrake;
+	boolean b_LiftRelease; 
+	boolean b_LiftWinchPower;
+	boolean b_ShooterPower;
+	boolean b_FarShot; 
+	boolean b_NearShot;
 	
-	public Inputs(int USBConnector_RightDriveStick, int USBConnector_joy_LeftWeaponsStick){
+	
+	public Inputs(int USBConnector_RightDriveStick, int USBConnector_joy_LeftWeaponsStick, int USBConnector_joy_LeftWeaponsButtons){
 		
 		joy_RightDriveStick = new Joystick(USBConnector_RightDriveStick); 
 		joy_LeftWeaponsStick = new Joystick(USBConnector_joy_LeftWeaponsStick); 
+		joy_LeftWeaponsButtons = new Joystick(USBConnector_joy_LeftWeaponsButtons);
 		zeroInputs();
 		
 		
@@ -31,16 +39,19 @@ public class Inputs {
 		
 		 d_PowerArcadeDrive = joy_RightDriveStick.getX() * -1 * .50;
 		 d_TurnArcadeDrive = joy_RightDriveStick.getY() * -1;
+		 d_ShooterWinch = joy_LeftWeaponsStick.getY() * -1;
 		 
 
 		 
-		 d_ShooterPower = joy_RightDriveStick.getZ() * -1;
+		 b_ShooterPower = joy_LeftWeaponsStick.getRawButton(3);
 		 b_ShiftGears = joy_RightDriveStick.getTrigger();
-		 b_ShooterKicker = joy_RightDriveStick.getRawButton(2); 
-		 b_ShooterArm = joy_RightDriveStick.getRawButton(3);
-		 b_ShooterExtension = joy_RightDriveStick.getRawButton(4); 	
-		 b_ScissorLift = joy_RightDriveStick.getRawButton(5);
-		 b_WinchBrake = joy_LeftWeaponsStick.getRawButton(6);
+		 b_ShooterKicker = joy_LeftWeaponsStick.getTrigger(); 
+		 b_ShooterArm = joy_LeftWeaponsButtons.getRawButton(1);
+		 b_ShooterExtension = joy_LeftWeaponsStick.getRawButton(2); 	
+		 b_ScissorLift = joy_LeftWeaponsButtons.getRawButton(2);
+		 b_WinchBrake = joy_LeftWeaponsButtons.getRawButton(7);
+		 b_LiftWinchPower = joy_RightDriveStick.getRawButton(11);
+
 		
 	}
 		

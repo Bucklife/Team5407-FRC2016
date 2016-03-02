@@ -1,7 +1,8 @@
 package org.usfirst.frc.team5407.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -24,18 +25,27 @@ public class Robot extends IterativeRobot {
 	Shooter shooter; 
 	Winch winch;
 	
+	
+	CameraServer server;
+
+    public Robot() {
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam0");
+    }
+
+	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	// myRobot = new RobotDrive(0,1);
-    	//joy_RightDriveStick = new Joystick(0);
     	
     	robotbase = new RobotBase(0,1);
-    	inputs = new Inputs(0,1);
-    	shooter = new Shooter(2);
-    	winch = new Winch(3);
+    	inputs = new Inputs(0,1,2);
+    	shooter = new Shooter(2,5);
+    	winch = new Winch(3,4,6);
     	
     	// Instructions to add a new solenoid:
     	// 1) Declare solenoids below.
@@ -85,20 +95,26 @@ public class Robot extends IterativeRobot {
         inputs.readValues();
         robotbase.update();
         solenoids.update();
-        shooter.update();
+        shooter.update(inputs, solenoids);
         winch.update(inputs);
         robotThink();
+        
+        while (isOperatorControl() && isEnabled()) {
+            /** robot code here! **/
+            Timer.delay(0.005);		// wait for a motor update time
+        }
+
     }
     
     public void robotThink() {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
-    	shooter.d_ShooterPower = inputs.d_ShooterPower;
+    	shooter.d_ShooterWinch = inputs.d_ShooterWinch;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
-    	solenoids.b_ShooterArm = inputs.b_ShooterArm;
+    	//solenoids.b_ShooterArm = inputs.b_ShooterArm;
     	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
-    	solenoids.b_ScissorLift = inputs.b_ScissorLift;     	
+    	solenoids.b_ScissorLift = inputs.b_ScissorLift;
     }
     
     
