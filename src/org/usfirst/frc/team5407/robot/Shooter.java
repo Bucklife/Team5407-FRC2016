@@ -39,7 +39,7 @@ public class Shooter{
 			d_ShooterPower = 0;
 			
 			if(inputs.b_ShooterPower == true){
-				d_ShooterPower = -.55;
+				d_ShooterPower = -.65;
 	    	}
 			
 			if(inputs.b_ShooterArm == false){
