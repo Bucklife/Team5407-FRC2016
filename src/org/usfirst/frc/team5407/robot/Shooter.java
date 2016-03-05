@@ -18,15 +18,15 @@ public class Shooter{
 	double d_ShooterWinch;
 	
 	// PID System Variables
-    final double setPoints[] = {1.0, 2.6, 4.3}; //bottom, middle, and top elevator setpoints
+    final double setPoints[] = {0.1, 0.25}; // low and high setpoints
     PIDController pidController;
     	//proportional, integral, and derivative speed constants; motor inverted 
     	//DANGER: when tuning PID constants, high/inappropriate values for pGain, iGain,
     	//and dGain may cause dangerous, uncontrollable, or undesired behavior!
     final double pGain = -5.0, iGain = -0.02, dGain = -2.0; //these may need to be positive for a non-inverted motor
   	
-	int i_WinchPotentiometer;
-	int i_ShooterHallEffectSensor;
+    double d_WinchPotentiometer;
+    double d_ShooterHallEffectSensor;
 	
 	public Shooter(int PWMConnector_ShooterPower, int PWMConnector_ShooterWinch, int ANAConnector_WinchPotentiometer, int ANAConnector_ShooterHallEffectSensor){
 			
@@ -40,27 +40,14 @@ public class Shooter{
 		mot_ShooterWinch.set(0.0);
 		
 		// PID
-		pidController = new PIDController(pGain, iGain, dGain, ana_WinchPotentiometer, mot_ShooterPower);
-		
+		pidController = new PIDController(pGain, iGain, dGain, ana_ShooterHallEffectSensor, mot_ShooterPower);
 	}
 		
 	public void readValues(){
-		i_WinchPotentiometer = ana_WinchPotentiometer.getAverageValue();
-		i_ShooterHallEffectSensor = ana_ShooterHallEffectSensor.getAverageValue();
-		SmartDashboard.putNumber("Winch PID", i_WinchPotentiometer);
-		SmartDashboard.putNumber("Hall Effect Sensor", i_ShooterHallEffectSensor);
-	}
-	
-	public void pidSystem(){
-		pidController.setInputRange(0, 5); //0 to 5V 
-		pidController.setSetpoint(setPoints[0]); //set to first setpoint
-		
-        pidController.enable(); //begin PID control
-        
-    	int index = 0;
-        
-    	pidController.setSetpoint(setPoints[index]);
-
+		d_WinchPotentiometer = ana_WinchPotentiometer.getAverageVoltage();
+		d_ShooterHallEffectSensor = ana_ShooterHallEffectSensor.getAverageVoltage();
+		SmartDashboard.putNumber("Winch PID", d_WinchPotentiometer);
+		SmartDashboard.putNumber("Hall Effect Sensor", d_ShooterHallEffectSensor);
 	}
 		
 	public void update(Inputs inputs, Solenoids solenoids){
@@ -82,11 +69,22 @@ public class Shooter{
 		
 		// Test Low and High Shot Buttons
 		if(inputs.b_LowShot == true){
-			
+	        pidController.enable(); //begin PID control
+			pidController.setSetpoint(0.1); //set to first setpoint
+			SmartDashboard.putNumber("Hall Effect PID Low", pidController.get());
+		} else if(inputs.b_HighShot == true){
+	        pidController.enable(); //begin PID control
+			pidController.setSetpoint(0.1); //set to first setpoint
+			SmartDashboard.putNumber("Hall Effect PID High", pidController.get());
+		} else {
+	        pidController.disable(); //begin PID control
 		}
 		
-		mot_ShooterPower.set(d_ShooterPower);
-		mot_ShooterWinch.set(d_ShooterWinch);
+		if(!pidController.isEnabled()){
+			mot_ShooterPower.set(d_ShooterPower);
+			mot_ShooterWinch.set(d_ShooterWinch);
+		}
+
 	}
 
 }
