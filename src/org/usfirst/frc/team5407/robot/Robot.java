@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
     	
     	robotbase = new RobotBase(0,1);
     	inputs = new Inputs(0,1,2);
-    	shooter = new Shooter(2,5);
+    	shooter = new Shooter(2,5,1);
     	winch = new Winch(3,4,6);
     	
     	// Instructions to add a new solenoid:
@@ -95,8 +95,8 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         // myRobot.arcadeDrive(joy_RightDriveStick);
     	
-    	robotbase.reset();	// resets gyro
-    	Timer.delay(2);		// waits for gyro to reset
+    	//robotbase.reset();	// resets gyro
+    	//Timer.delay(2);		// waits for gyro to reset
         
         while (isOperatorControl() && isEnabled()) {
             /** robot code here! **/
@@ -104,7 +104,8 @@ public class Robot extends IterativeRobot {
             robotbase.update();
             solenoids.update();
             shooter.update(inputs, solenoids);
-            winch.update(inputs);
+            shooter.readValues();
+            winch.update(inputs, solenoids);
             robotThink();
             
             robotbase.gyroUpdate();
@@ -120,9 +121,9 @@ public class Robot extends IterativeRobot {
     	shooter.d_ShooterWinch = inputs.d_ShooterWinch;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
-    	//solenoids.b_ShooterArm = inputs.b_ShooterArm;
+    	// solenoids.b_ShooterArm = inputs.b_ShooterArm;
     	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
-    	solenoids.b_ScissorLift = inputs.b_ScissorLift;
+    	// solenoids.b_ScissorLift = inputs.b_ScissorLift;
     }
     
     
