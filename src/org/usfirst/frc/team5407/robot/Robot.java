@@ -105,7 +105,7 @@ public class Robot extends IterativeRobot {
             solenoids.update();
             shooter.update(inputs, solenoids);
             shooter.readValues();
-            winch.update(inputs);
+            winch.update(inputs, solenoids);
             robotThink();
             
             robotbase.gyroUpdate();
@@ -121,9 +121,9 @@ public class Robot extends IterativeRobot {
     	shooter.d_ShooterWinch = inputs.d_ShooterWinch;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
-    	//solenoids.b_ShooterArm = inputs.b_ShooterArm;
+    	// solenoids.b_ShooterArm = inputs.b_ShooterArm;
     	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
-    	solenoids.b_ScissorLift = inputs.b_ScissorLift;
+    	// solenoids.b_ScissorLift = inputs.b_ScissorLift;
     }
     
     
