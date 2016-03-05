@@ -19,7 +19,8 @@ public class Inputs {
 	boolean b_ScissorLift;
 	boolean b_WinchBrake;
 	boolean b_LiftRelease; 
-	boolean b_LiftWinchPower;
+	boolean b_LiftWinchPowerUp;
+	boolean b_LiftWinchPowerDown;
 	boolean b_ShooterPower;
 	boolean b_LowShot; 
 	boolean b_HighShot;
@@ -43,7 +44,8 @@ public class Inputs {
 		 b_ShooterArm = joy_LeftWeaponsButtons.getRawButton(1);
 		 b_ShooterExtension = joy_LeftWeaponsStick.getRawButton(2); 	
 		 b_WinchBrake = joy_LeftWeaponsButtons.getRawButton(7);
-		 b_LiftWinchPower = joy_RightDriveStick.getRawButton(11);
+		 b_LiftWinchPowerDown = joy_RightDriveStick.getRawButton(12);
+		 b_LiftWinchPowerUp = joy_RightDriveStick.getRawButton(11);
 		 
 		 // Testing buttons
 		 b_LowShot = joy_LeftWeaponsButtons.getRawButton(4);

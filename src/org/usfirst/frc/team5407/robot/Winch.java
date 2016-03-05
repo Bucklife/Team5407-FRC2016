@@ -31,7 +31,7 @@ public class Winch {
 		// zero counter
 		i_periodicCounter = 0;
 		
-		}
+	}
 	
 		public void update(Inputs inputs, Solenoids solenoids){
 			
@@ -53,8 +53,10 @@ public class Winch {
 	    	}
 	     	
 	    	//this is just for testing can be motor speed can be tuned
-	    	if(inputs.b_LiftWinchPower == true){
-	    		d_LiftWinchPower = 80;
+	    	if(inputs.b_LiftWinchPowerUp == true){
+	    		d_LiftWinchPower = 0.80;
+	    	} else if(inputs.b_LiftWinchPowerDown == true) {
+	    		d_LiftWinchPower = -0.20;
 	    	} else {
 	    		d_LiftWinchPower = 0;
 	    	}

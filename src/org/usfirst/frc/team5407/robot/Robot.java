@@ -119,12 +119,21 @@ public class Robot extends IterativeRobot {
     public void robotThink() {
     	robotbase.d_LeftDrivePower = inputs.d_PowerArcadeDrive - inputs.d_TurnArcadeDrive;
     	robotbase.d_RightDrivePower = inputs.d_PowerArcadeDrive + inputs.d_TurnArcadeDrive;
-    	shooter.d_ShooterWinch = inputs.d_ShooterWinch;
     	solenoids.b_ShiftGears = inputs.b_ShiftGears;
     	solenoids.b_ShooterKicker = inputs.b_ShooterKicker;
     	// solenoids.b_ShooterArm = inputs.b_ShooterArm;
     	solenoids.b_ShooterExtension = inputs.b_ShooterExtension;
     	// solenoids.b_ScissorLift = inputs.b_ScissorLift;
+    	
+    	// testing using potentiometer as limit switch
+    	if(shooter.d_WinchPotentiometer > 4.4 && inputs.d_ShooterWinch > 0.1){
+    		shooter.d_ShooterWinch = 0;
+    	} else if (shooter.d_WinchPotentiometer < 0.5 && inputs.d_ShooterWinch < -0.1){
+    		shooter.d_ShooterWinch = 0;
+    	} else {
+    		shooter.d_ShooterWinch = inputs.d_ShooterWinch;
+    	}
+    	
     }
     
     
