@@ -15,7 +15,8 @@ public class Winch {
 	double d_LiftWinchPower;
 	double d_LiftRelease;
 	
-	
+	int i_periodicCounter;
+		
 	public Winch(int PWMConnector_WinchBrake, int PWMConnector_LiftWinchPower, int PWMConnector_LiftRelease){
 		
 		serv_WinchBrake = new Servo(PWMConnector_WinchBrake); 
@@ -26,6 +27,9 @@ public class Winch {
 		serv_WinchBrake.set(0.0);
 		serv_LiftRelease.set(0.8);
 		mot_LiftWinchPower.set(0.0);
+		
+		// zero counter
+		i_periodicCounter = 0;
 		
 		}
 	
@@ -40,8 +44,10 @@ public class Winch {
 	    	//this is just for testing servo values can be tuned 
 	    	if(inputs.b_ScissorLift == true){
 	    		d_LiftRelease = 0.2;
-	    		// Timer.delay(2);
-	    		// solenoids.b_ScissorLift = true;
+	    		if (++i_periodicCounter > 1000) {
+	    			solenoids.b_ScissorLift = true;
+	    		}
+	    		
 	    	} else {
 	    		d_LiftRelease = 0.8;
 	    	}
@@ -58,5 +64,10 @@ public class Winch {
 			mot_LiftWinchPower.set(d_LiftWinchPower);
 
 		}
+		
+		public void zeroInputs(){
+			i_periodicCounter = 0;
+		}
+		
 
 }

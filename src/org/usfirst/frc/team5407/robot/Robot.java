@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
     	
     	robotbase = new RobotBase(0,1);
     	inputs = new Inputs(0,1,2);
-    	shooter = new Shooter(2,5,1);
+    	shooter = new Shooter(2,5,1,2);
     	winch = new Winch(3,4,6);
     	
     	// Instructions to add a new solenoid:
@@ -87,6 +87,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit(){
     	robotbase.reset();
     	Timer.delay(2);
+    	winch.zeroInputs();
     }
 
     /**
@@ -110,7 +111,7 @@ public class Robot extends IterativeRobot {
             
             robotbase.gyroUpdate();
                         
-            Timer.delay(0.005);		// wait for a motor update time
+            // Timer.delay(0.005);		// wait for a motor update time
         }
 
     }
