@@ -107,6 +107,12 @@ public class Shooter{
     		solenoids.b_ShooterArm = false;
     	}
 		
+		//portcullis opener 
+		if(inputs.b_PortcullisOpener == true){
+			d_ShooterPower = -0.50;
+			solenoids.b_ShooterArm = true;
+    	}
+		
 		mot_ShooterPower.set(d_ShooterPower);
 		mot_ShooterWinch.set(d_ShooterWinch);
 		
