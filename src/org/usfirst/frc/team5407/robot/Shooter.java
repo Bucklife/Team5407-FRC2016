@@ -24,8 +24,8 @@ public class Shooter{
     	//proportional, integral, and derivative speed constants; motor inverted 
     	//DANGER: when tuning PID constants, high/inappropriate values for pGain, iGain,
     	//and dGain may cause dangerous, uncontrollable, or undesired behavior!
-    final double pGain_S = 0.5, iGain_S = 0.0, dGain_S = 0.0; //these may need to be positive for a non-inverted motor
-    final double pGain_W = 1, iGain_W = 0.0, dGain_W = 0.0; //these may need to be positive for a non-inverted motor
+    final double pGain_S = 0.25, iGain_S = 0.0, dGain_S = 0.0; //these may need to be positive for a non-inverted motor
+    final double pGain_W = 0.5, iGain_W = 0.0, dGain_W = 0.0; //these may need to be positive for a non-inverted motor
   	
     double d_WinchPotentiometer;
     double d_ShooterHallEffectSensor;
@@ -46,12 +46,14 @@ public class Shooter{
 		pidControllerShooter.setContinuous();
 		pidControllerShooter.setInputRange(0, 5);
 		pidControllerShooter.setOutputRange(-1, 1);
+		pidControllerShooter.setAbsoluteTolerance(0.2);
 		
 		// PID Winch
 		pidControllerWinch = new PIDController(pGain_W, iGain_W, dGain_W, ana_WinchPotentiometer, mot_ShooterWinch);
 		pidControllerWinch.setContinuous();
 		pidControllerWinch.setInputRange(0, 5);
 		pidControllerWinch.setOutputRange(-1, 1);
+		pidControllerWinch.setAbsoluteTolerance(0.2);
 	}
 		
 	public void readValues(){
@@ -65,43 +67,49 @@ public class Shooter{
 		
 		d_ShooterPower = 0;
 		
+		// Test Low and High Shot Buttons
+		if(inputs.b_LowShot == true){
+			mot_ShooterPower.setInverted(true);
+			pidControllerShooter.enable(); //begin PID control
+			pidControllerShooter.setSetpoint(3);
+			SmartDashboard.putNumber("Hall Effect PID Low", pidControllerShooter.get());
+			
+			pidControllerWinch.enable(); //begin PID control
+			pidControllerWinch.setSetpoint(4);
+			SmartDashboard.putNumber("Winch PID Low", pidControllerWinch.get());
+			
+		} else if(inputs.b_HighShot == true){
+			mot_ShooterPower.setInverted(true);
+			pidControllerShooter.enable(); //begin PID control
+			pidControllerShooter.setSetpoint(3);
+			SmartDashboard.putNumber("Hall Effect PID High", pidControllerShooter.get());
+			
+			pidControllerWinch.enable(); //begin PID control
+			pidControllerWinch.setSetpoint(1);
+			SmartDashboard.putNumber("Winch PID High", pidControllerWinch.get());
+			
+		} else {
+			//mot_ShooterPower.setInverted(false);
+			// pidControllerShooter.disable(); //begin PID control
+			// pidControllerWinch.disable(); //begin PID control
+		}
+		
 		// Test spinning up shooter wheel
 		if(inputs.b_ShooterPower == true){
-			d_ShooterPower = -.65;
+			d_ShooterPower = -0.65;
     	}
 		
 		// Intake mechanism
 		if(inputs.b_ShooterArm == false){
-			d_ShooterPower = .50;
+			d_ShooterPower = 0.50;
 			solenoids.b_ShooterArm = true;
     	} else {
     		solenoids.b_ShooterArm = false;
     	}
 		
-		// Test Low and High Shot Buttons
-		if(inputs.b_LowShot == true){
-			pidControllerShooter.enable(); //begin PID control
-			pidControllerShooter.setSetpoint(1.5);
-			SmartDashboard.putNumber("Hall Effect PID Low", pidControllerShooter.get());
-			pidControllerWinch.enable(); //begin PID control
-			pidControllerWinch.setSetpoint(1.5);
-			SmartDashboard.putNumber("Winch PID Low", pidControllerWinch.get());
-		} else if(inputs.b_HighShot == true){
-			pidControllerShooter.enable(); //begin PID control
-			pidControllerShooter.setSetpoint(2.0);
-			SmartDashboard.putNumber("Hall Effect PID High", pidControllerShooter.get());
-			pidControllerWinch.enable(); //begin PID control
-			pidControllerWinch.setSetpoint(3.0);
-			SmartDashboard.putNumber("Winch PID High", pidControllerWinch.get());
-		} else {
-			pidControllerShooter.disable(); //begin PID control
-			pidControllerWinch.disable(); //begin PID control
-		}
+		mot_ShooterPower.set(d_ShooterPower);
+		mot_ShooterWinch.set(d_ShooterWinch);
 		
-		if(!pidControllerShooter.isEnabled()){
-			mot_ShooterPower.set(d_ShooterPower);
-			mot_ShooterWinch.set(d_ShooterWinch);
-		}
 
 	}
 

@@ -35,6 +35,8 @@ public class Winch {
 	
 		public void update(Inputs inputs, Solenoids solenoids){
 			
+			d_LiftWinchPower = 0;
+			
 	    	if(inputs.b_WinchBrake == true){
 	    		d_WinchBrake = 0.8;
 	    	} else {
@@ -44,12 +46,12 @@ public class Winch {
 	    	//this is just for testing servo values can be tuned 
 	    	if(inputs.b_ScissorLift == true){
 	    		d_LiftRelease = 0.2;
-	    		if (++i_periodicCounter > 1000) {
+	    		if (++i_periodicCounter > 500) {
 	    			solenoids.b_ScissorLift = true;
 	    		}
-	    		
 	    	} else {
 	    		d_LiftRelease = 0.8;
+    			solenoids.b_ScissorLift = false;
 	    	}
 	     	
 	    	//this is just for testing can be motor speed can be tuned
@@ -57,8 +59,6 @@ public class Winch {
 	    		d_LiftWinchPower = 0.80;
 	    	} else if(inputs.b_LiftWinchPowerDown == true) {
 	    		d_LiftWinchPower = -0.20;
-	    	} else {
-	    		d_LiftWinchPower = 0;
 	    	}
 	    	
 			serv_WinchBrake.set(d_WinchBrake);

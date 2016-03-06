@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	Solenoids solenoids; 
 	Shooter shooter; 
 	Winch winch;
-	
+	Auton auton;
 	
 	CameraServer server;
 
@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
     	robotbase = new RobotBase(0,1);
     	inputs = new Inputs(0,1,2);
     	shooter = new Shooter(2,5,1,2);
-    	winch = new Winch(3,4,6);
+    	winch = new Winch(3,7,6);
     	
     	// Instructions to add a new solenoid:
     	// 1) Declare solenoids below.
@@ -72,12 +72,16 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(autoLoopCounter < 100) //Check if we've completed 100 loops (approximately 2 seconds)
+    	if(autoLoopCounter < 150) //Check if we've completed 100 loops (approximately 2 seconds)
 		{
 			// myRobot.drive(-0.5, 0.0); 	// drive forwards half speed
-			autoLoopCounter++;
+        	robotbase.mot_LeftDriveMotor.set(0.75);
+        	robotbase.mot_RightDriveMotor.set(0.75);
+        	autoLoopCounter++;
 			} else {
 			// myRobot.drive(0.0, 0.0); 	// stop robot
+	    	robotbase.mot_LeftDriveMotor.set(0);
+	    	robotbase.mot_RightDriveMotor.set(0);
 		}
     }
     
@@ -85,8 +89,8 @@ public class Robot extends IterativeRobot {
      * This function is called once each time the robot enters tele-operated mode
      */
     public void teleopInit(){
-    	robotbase.reset();
-    	Timer.delay(2);
+    	// robotbase.reset();
+    	// Timer.delay(2);
     	winch.zeroInputs();
     }
 
@@ -109,7 +113,7 @@ public class Robot extends IterativeRobot {
             winch.update(inputs, solenoids);
             robotThink();
             
-            robotbase.gyroUpdate();
+            // robotbase.gyroUpdate();
                         
             // Timer.delay(0.005);		// wait for a motor update time
         }

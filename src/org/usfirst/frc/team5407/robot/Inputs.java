@@ -38,6 +38,7 @@ public class Inputs {
 		 d_TurnArcadeDrive = joy_RightDriveStick.getY() * -1;
 		 d_ShooterWinch = joy_LeftWeaponsStick.getY() * -1;
 		 
+		 b_ScissorLift = joy_LeftWeaponsButtons.getRawButton(2);
 		 b_ShooterPower = joy_LeftWeaponsStick.getRawButton(3);
 		 b_ShiftGears = joy_RightDriveStick.getTrigger();
 		 b_ShooterKicker = joy_LeftWeaponsStick.getTrigger(); 
@@ -48,11 +49,10 @@ public class Inputs {
 		 b_LiftWinchPowerUp = joy_RightDriveStick.getRawButton(11);
 		 
 		 // Testing buttons
-		 b_LowShot = joy_LeftWeaponsButtons.getRawButton(4);
-		 b_HighShot = joy_LeftWeaponsButtons.getRawButton(3);
+		 //b_LowShot = joy_LeftWeaponsButtons.getRawButton(4);
+		 //b_HighShot = joy_LeftWeaponsButtons.getRawButton(3);
 		 
 		 // Obsolete:
-		 // b_ScissorLift = joy_LeftWeaponsButtons.getRawButton(2);
 		 // b_LiftRelease = joy_LeftWeaponsStick.getRawButton(4);
 
 	}

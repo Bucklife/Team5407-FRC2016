@@ -49,8 +49,8 @@ public class RobotBase {
     }
     
     public void gyroUpdate(){
-		d_gyroAngle = shooterGyro.getAngle();
-		SmartDashboard.putNumber("Gyro Angle", d_gyroAngle);
+		// d_gyroAngle = shooterGyro.getAngle();
+		// SmartDashboard.putNumber("Gyro Angle", d_gyroAngle);
     }
 	
 }
