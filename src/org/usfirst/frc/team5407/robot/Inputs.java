@@ -51,8 +51,8 @@ public class Inputs {
 		 b_PortcullisOpener = joy_LeftWeaponsStick.getRawButton(8); 
 		 
 		 // Testing buttons
-		 //b_LowShot = joy_LeftWeaponsButtons.getRawButton(4);
-		 //b_HighShot = joy_LeftWeaponsButtons.getRawButton(3);
+		 b_LowShot = joy_LeftWeaponsButtons.getRawButton(4);
+		 b_HighShot = joy_LeftWeaponsButtons.getRawButton(3);
 		 
 		 // Obsolete:
 		 // b_LiftRelease = joy_LeftWeaponsStick.getRawButton(4);
