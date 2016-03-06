@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(autoLoopCounter < 25) //Check if we've completed 100 loops (approximately 2 seconds)
+    	if(autoLoopCounter < 125) //Check if we've completed 100 loops (approximately 2 seconds)
 		{
 			// myRobot.drive(-0.5, 0.0); 	// drive forwards half speed
         	robotbase.mot_LeftDriveMotor.set(0.75);
