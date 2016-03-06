@@ -24,7 +24,7 @@ public class Shooter{
     	//proportional, integral, and derivative speed constants; motor inverted 
     	//DANGER: when tuning PID constants, high/inappropriate values for pGain, iGain,
     	//and dGain may cause dangerous, uncontrollable, or undesired behavior!
-    final double pGain_S = 0.0, iGain_S = 2.0, dGain_S = 0.0; //these may need to be positive for a non-inverted motor
+    final double pGain_S = 0.5, iGain_S = 0.0, dGain_S = 0.0; //these may need to be positive for a non-inverted motor
     final double pGain_W = 0.5, iGain_W = 0.0, dGain_W = 0.0; //these may need to be positive for a non-inverted motor
   	
     double d_WinchPotentiometer;
@@ -43,6 +43,7 @@ public class Shooter{
 		
 		// PID Shooter
 		pidControllerShooter = new PIDController(pGain_S, iGain_S, dGain_S, ana_ShooterHallEffectSensor, mot_ShooterPower);
+		//pidControllerShooter = new PIDController(dGain_S, dGain_S, dGain_S, fGain_S, ana_ShooterHallEffectSensor, mot_ShooterPower);
 		pidControllerShooter.setContinuous();
 		pidControllerShooter.setInputRange(0, 5);
 		pidControllerShooter.setOutputRange(-1, 1);
@@ -55,8 +56,6 @@ public class Shooter{
 		pidControllerWinch.setOutputRange(-1, 1);
 		pidControllerWinch.setAbsoluteTolerance(0.2);
 		
-		pidControllerShooter.disable();
-		pidControllerWinch.disable();
 	}
 		
 	public void readValues(){
@@ -72,8 +71,6 @@ public class Shooter{
 		solenoids.b_ShooterArm = false;
 		
 		mot_ShooterPower.setInverted(false);
-		//pidControllerShooter.disable();
-		//pidControllerWinch.disable();
 		
 		// Test Low and High Shot Buttons
 		if(inputs.b_LowShot == true){
@@ -97,8 +94,10 @@ public class Shooter{
 			SmartDashboard.putNumber("Winch PID High", pidControllerWinch.get());
 			
 		} else if(inputs.b_LowShot == false && inputs.b_HighShot ==  false){
-			//pidControllerShooter.disable();
-			//pidControllerWinch.disable();
+			if(pidControllerWinch.isEnabled()){
+				pidControllerShooter.disable();
+				pidControllerWinch.disable();
+			}
 		}
 		
 		// Test spinning up shooter wheel
