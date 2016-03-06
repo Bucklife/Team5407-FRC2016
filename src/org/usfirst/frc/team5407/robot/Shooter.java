@@ -24,8 +24,8 @@ public class Shooter{
     	//proportional, integral, and derivative speed constants; motor inverted 
     	//DANGER: when tuning PID constants, high/inappropriate values for pGain, iGain,
     	//and dGain may cause dangerous, uncontrollable, or undesired behavior!
-    final double pGain_S = 0.25, iGain_S = 0.0, dGain_S = 0.0; //these may need to be positive for a non-inverted motor
-    final double pGain_W = 0.25, iGain_W = 0.0, dGain_W = 0.0; //these may need to be positive for a non-inverted motor
+    final double pGain_S = 0.0, iGain_S = 2.0, dGain_S = 0.0; //these may need to be positive for a non-inverted motor
+    final double pGain_W = 0.5, iGain_W = 0.0, dGain_W = 0.0; //these may need to be positive for a non-inverted motor
   	
     double d_WinchPotentiometer;
     double d_ShooterHallEffectSensor;
@@ -43,17 +43,20 @@ public class Shooter{
 		
 		// PID Shooter
 		pidControllerShooter = new PIDController(pGain_S, iGain_S, dGain_S, ana_ShooterHallEffectSensor, mot_ShooterPower);
-		pidControllerShooter.setContinuous(false);
+		pidControllerShooter.setContinuous();
 		pidControllerShooter.setInputRange(0, 5);
 		pidControllerShooter.setOutputRange(-1, 1);
 		pidControllerShooter.setAbsoluteTolerance(0.2);
 		
 		// PID Winch
 		pidControllerWinch = new PIDController(pGain_W, iGain_W, dGain_W, ana_WinchPotentiometer, mot_ShooterWinch);
-		pidControllerWinch.setContinuous(false);
+		pidControllerWinch.setContinuous();
 		pidControllerWinch.setInputRange(0, 5);
 		pidControllerWinch.setOutputRange(-1, 1);
 		pidControllerWinch.setAbsoluteTolerance(0.2);
+		
+		pidControllerShooter.disable();
+		pidControllerWinch.disable();
 	}
 		
 	public void readValues(){
@@ -69,8 +72,8 @@ public class Shooter{
 		solenoids.b_ShooterArm = false;
 		
 		mot_ShooterPower.setInverted(false);
-		pidControllerShooter.disable();
-		pidControllerWinch.disable();
+		//pidControllerShooter.disable();
+		//pidControllerWinch.disable();
 		
 		// Test Low and High Shot Buttons
 		if(inputs.b_LowShot == true){
@@ -93,6 +96,9 @@ public class Shooter{
 			pidControllerWinch.setSetpoint(1);
 			SmartDashboard.putNumber("Winch PID High", pidControllerWinch.get());
 			
+		} else if(inputs.b_LowShot == false && inputs.b_HighShot ==  false){
+			//pidControllerShooter.disable();
+			//pidControllerWinch.disable();
 		}
 		
 		// Test spinning up shooter wheel
@@ -112,8 +118,10 @@ public class Shooter{
 			solenoids.b_ShooterArm = true;
     	}
 		
-		mot_ShooterPower.set(d_ShooterPower);
-		mot_ShooterWinch.set(d_ShooterWinch);
+		if(!pidControllerWinch.isEnabled()){
+			mot_ShooterPower.set(d_ShooterPower);
+			mot_ShooterWinch.set(d_ShooterWinch);
+		}
 
 	}
 
